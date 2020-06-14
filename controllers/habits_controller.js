@@ -8,10 +8,11 @@ module.exports.create = function(req, res){
     date: req.body.date
   }, function(err, habit){
     if(err){
-      console.log('Error in creating habit');
+      req.flash('error', err);
       return;
     }
 
+    req.flash('success', 'Habit Created');
     return res.redirect('back');
   });
 }
@@ -21,7 +22,11 @@ module.exports.destroy = function(req, res){
     // .id means converting the object id into string 
     if(habit.user == req.user.id){
       habit.remove();
+      req.flash('success', 'Habit Deleted');
+      return res.redirect('back');
+    } else {
+      req.flash('error', 'You cannot delete this habit');
+      return res.redirect('back');
     }
-    return res.redirect('back');
   });
 }
