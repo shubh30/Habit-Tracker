@@ -13,5 +13,15 @@ module.exports.create = function(req, res){
     }
 
     return res.redirect('back');
-  })
+  });
+}
+
+module.exports.destroy = function(req, res){
+  Habit.findById(req.params.id, function(err, habit){
+    // .id means converting the object id into string 
+    if(habit.user == req.user.id){
+      habit.remove();
+    }
+    return res.redirect('back');
+  });
 }

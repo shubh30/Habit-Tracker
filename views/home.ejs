@@ -13,7 +13,7 @@
       <input type="date" id="date" name="date">
       <input type="submit" value="Add Habit">
     </form>
-  
+    
     <div id="habits-list-container">
       <ul>
         <% for(habit of habits){ %> 
@@ -27,6 +27,11 @@
                   <span>By: </span><span><%= habit.user.name %></span>
                 </small>
               </div>
+              <% if(locals.user && locals.user.id == habit.user.id) { %>
+                <small>
+                  <a href="/habits/destroy/<%= habit.id %>">X</a>
+                </small>
+              <% } %>
             </div>
           </li>  
         <% } %>
