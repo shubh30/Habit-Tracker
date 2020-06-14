@@ -1,15 +1,38 @@
 <link rel="stylesheet" href="css/home.css">
-<h1>Habit Tracker / <%= title %></h1>
 
-<section id="habits">
-  <form action="/habits/create" id="new-habit-form" method="post">
-    <input type="text" name="habit" placeholder="Enter Your Habit" required>
-    <select name="priority" id="priority">
-      <option value="Low">Low</option>
-      <option value="Medium">Medium</option>
-      <option value="High">High</option>
-    </select>
-    <input type="date" id="date" name="date">
-    <input type="submit" value="Add Habit">
-  </form>
-</section>
+
+<% if(locals.user) { %>
+  <section id="habits">
+    <form action="/habits/create" id="new-habit-form" method="post">
+      <input type="text" name="habit" placeholder="Enter Your Habit" required>
+      <select name="priority" id="priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <input type="date" id="date" name="date">
+      <input type="submit" value="Add Habit">
+    </form>
+  
+    <div id="habits-list-container">
+      <ul>
+        <% for(habit of habits){ %> 
+          <li>
+            <div>
+              <div><%= habit.habit %></div>
+              <div><%= habit.priority %></div>
+              <div><%= habit.date %></div>
+              <div>
+                <small>
+                  <span>By: </span><span><%= habit.user.name %></span>
+                </small>
+              </div>
+            </div>
+          </li>  
+        <% } %>
+      </ul>
+    </div>
+  </section>  
+<% } else { %>
+  <h1>Sign in and enjoy features of Habit Tracker</h1>
+<% } %>
