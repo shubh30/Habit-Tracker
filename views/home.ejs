@@ -2,8 +2,14 @@
 <h1>Habit Tracker / <%= title %></h1>
 
 <section id="habits">
-  <form action="" id="new-habit-form" method="post">
+  <form action="/habits/create" id="new-habit-form" method="post">
     <input type="text" name="habit" placeholder="Enter Your Habit" required>
+    <select name="priority" id="priority">
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+    <input type="date" id="date" name="date">
     <input type="submit" value="Add Habit">
   </form>
 </section>

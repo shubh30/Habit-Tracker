@@ -9,6 +9,14 @@ const habitSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  priority: {
+    type: String,
+    required: true
+  }, 
+  date: {
+    type: Date,
+    required: true
   }
 }, {
   timestamps: true
