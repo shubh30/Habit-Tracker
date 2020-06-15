@@ -1,2 +1,17 @@
-body {
-  background-color: aqua; }
+.welcome-ctr {
+  display: flex;
+  justify-content: center; }
+
+.h1-heading {
+  margin-top: 30vh; }
+
+.habit-input {
+  width: 50%;
+  margin: auto;
+  margin-top: 5vh;
+  margin-bottom: 3vh; }
+  .habit-input .habit-input-element {
+    width: 100%; }
+  .habit-input .habit-btn {
+    text-align: center;
+    margin: auto; }

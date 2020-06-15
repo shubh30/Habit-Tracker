@@ -1,40 +1,50 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet" href="css/home.css">
-
+<link rel="stylesheet" href="/css/home.css">
 
 <% if(locals.user) { %>
   <section id="habits">
-    <form action="/habits/create" id="new-habit-form" method="post">
-      <input type="text" name="habit" placeholder="Enter Your Habit" required>
-      <select name="priority" id="priority">
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-      <input type="date" id="date" name="date">
-      <input type="submit" value="Add Habit">
-    </form>
+    <div class="habit-input">
+      <form action="/habits/create" id="new-habit-form" method="post">
+        <div class="form-group">
+          <input type="text" name="habit" class="form-container habit-input-element" placeholder="Enter Your Habit" required>
+        </div>
+        <div class="form-group d-flex justify-content-between">
+          <select name="priority" id="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          <input type="date" id="date" name="date">
+        </div>
+        <div class="habit-btn">
+          <input type="submit" value="Add Habit" class="btn btn-primary m-auto">
+        </div>
+      </form>
+    </div>
     
     <div id="habits-list-container">
       <ul>
         <% for(habit of habits){ %> 
-          <li>
-            <div>
-              <div><%= habit.habit %></div>
-              <div><%= habit.priority %></div>
-              <div><%= habit.date %></div>
-              <div>
-                <small>
-                  <span>By: </span><span><%= habit.user.name %></span>
-                </small>
+          <li class="d-flex justify-content-center">
+            <div class="card text-center w-50">
+              <h5 class="card-header w-100"><%= habit.habit %></h5>
+              <div class="card-body w-100">
+                <h5 class="card-title"><%= habit.priority %></h5>
+                
+                <div class="d-flex justify-content-between">
+                  <span class="card-text"><%= habit.date %></span>
+                  <span class="card-text d-inline-block">Completed: <cite title="Source Title"><%=habit.completed%>/<%=habit.days.length%></cite></span>
+                  <span class="card-text d-inline-block">Longest Streak: <cite title="Source Title"><%= habit.streak%></cite></span>
+                </div>
+                <div class="d-flex justify-content-between ">
+                  <small class="d-inline-block">
+                    <span class="blockquote-footer ">By: <%= habit.user.name %></span>
+                  </small>
+                  <% if(locals.user && locals.user.id == habit.user.id) { %>
+                    <a href="/habits/destroy/<%= habit.id %>" class="btn btn-danger btn-sm del-btn" role="button" aria-pressed="true">Delete</a>                    
+                  <% } %>
+                </div>
               </div>
-              <footer class="blockquote-footer">Completed: <cite title="Source Title"><%=habit.completed%>/<%=habit.days.length%></cite></footer>
-              <footer class="blockquote-footer">Longest Streak: <cite title="Source Title"><%= habit.streak%></cite></footer>
-              <% if(locals.user && locals.user.id == habit.user.id) { %>
-                <small>
-                  <a href="/habits/destroy/<%= habit.id %>" class="btn btn-danger btn-sm del-btn" role="button" aria-pressed="true">Delete</a>
-                </small>
-              <% } %>
             </div>
           </li>  
         <% } %>
@@ -42,5 +52,7 @@
     </div>
   </section>  
 <% } else { %>
-  <h1>Sign in and enjoy features of Habit Tracker</h1>
+  <div class="welcome-ctr">
+    <h1 class="h1-heading">Sign in and enjoy features of Habit Tracker</h1>
+  </div>
 <% } %>
