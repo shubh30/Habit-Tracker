@@ -5,7 +5,10 @@ module.exports.create = function(req, res){
     habit: req.body.habit,
     user: req.user._id,
     priority: req.body.priority,
-    date: req.body.date
+    date: req.body.date,
+    days: ['None','None','None','None','None','None','None'],
+    completed: 0,
+    streak: 0
   }, function(err, habit){
     if(err){
       req.flash('error', err);
